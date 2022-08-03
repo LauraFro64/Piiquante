@@ -7,14 +7,14 @@ const fs = require("fs");
 
 // Création d'une sauce
 exports.createSauce = (req, res, next) => {
-  // Analyse et converti la chaine JSON sauce en objet Javascript utilisable
+  // Analyse et convertit la chaine JSON sauce en objet Javascript utilisable
   const sauceObject = JSON.parse(req.body.sauce);
   // Suppression de _id car l'utilisation du mot-clé new avec un modèle Mongoose crée par défaut un champ _id
   delete sauceObject._id;
   delete sauceObject._userId; // éviter qu'une personne mal intentionnée de faire une requête avec son token mais en nous envoyant le userID de qqun d'autre 
 
   const sauce = new Sauce({
-    // Opération spread permettant de faire une copie du req.body
+    // Opération spread (syntaxe de décomposition pour étendre un itérable en lieu et place de plusieurs arguments) permettant de faire une copie du req.body
     ...sauceObject,
     _userId: req.auth.userId,
     imageUrl: `${req.protocol}://${req.get("host")}/images/${req.file.filename}`,

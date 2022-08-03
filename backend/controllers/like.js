@@ -17,7 +17,7 @@ exports.likeSauce = (req, res, next) => {
         // $push: Incrémente le array userLiked avec la valeur de l'élément désigné
         $push: { usersLiked: req.body.userId },
 
-        // $inc: Créer le champ et défini le champ sur la valeur spécifiée
+        // $inc: Crée le champ et défini le champ sur la valeur spécifiée
         $inc: { likes: +1 }
       }
     )
@@ -47,7 +47,7 @@ exports.likeSauce = (req, res, next) => {
     Sauce.findOne({ _id: req.params.id })
       .then((sauce) => {
 
-        // includes(): Détermine si le tableau usersLiked contient une valeur et renvoi un booléen
+        // includes(): Détermine si le tableau usersLiked contient une valeur et renvoie un booléen
         if (sauce.usersLiked.includes(req.body.userId)) {
 
           // updateOne(): Mise à jour du modèle avec les nouvelles valeurs des champs spécifiées 

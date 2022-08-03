@@ -11,7 +11,7 @@ const jwt = require('jsonwebtoken');
 exports.signup = (req, res, next) => {
 
     // .hach(): Hachage, cryptage du mot de passe 
-    // "Salage = 10 tours de l'algorythme" + valeur élevée, + l'exécution de la fonction sera longue, et plus le hachage sera sécurisé
+    // "Salage = 10 tours de l'algorythme" + valeur élevée, + l'exécution de la fonction sera longuecmais + le hachage sera sécurisé
     bcrypt.hash(req.body.password, 10)
       .then(hash => {
         const user = new User({
@@ -55,7 +55,7 @@ exports.login = (req, res, next) => {
                 { userId: user._id },
                 
                 // Chaîne secrète d'encodage du token (normalement bcp plus complexe)
-                'RANDOM_TOKEN_SECRET',
+                process.env.RANDOM_TOKEN_SECRET,
                 
                 // Durée de validité du token: l'utilisateur devra se reconnecter au bout de 24h
                 { expiresIn: '24h' }
